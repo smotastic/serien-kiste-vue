@@ -1,12 +1,15 @@
 <template>
-  <div class="row">
-    <watch v-for="item in list" :key="item.name" :movie="item" />
+  <div>
+    <div class="row">
+      <watch v-for="item in list" :key="item.name" :movie="item" />
+    </div>
+    <q-btn round icon="add" @click="addMovie" />
   </div>
 </template>
 
 <script lang="ts">
 import { Movie } from './models';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, Ref } from 'vue';
 import Watch from './Watch.vue';
 
 function watchList() {
@@ -29,13 +32,17 @@ function watchList() {
     {
       name: 'Geiler Film',
       director: 'Markus',
-      description: 'Ein unglaublich guter Film mit fliegenden Kindern',
+      description:
+        'Ein unglaublich guter Film mit fliegenden Kindern, Ein unglaublich guter Film mit fliegenden Kindern, Ein unglaublich guter Film mit fliegenden Kindern, Ein unglaublich guter Film mit fliegenden Kindern',
     },
   ];
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const list = ref(arr1);
+  const list: Ref<Movie[]> = ref(arr1);
 
-  return { list };
+  function addMovie() {
+    list.value.push({ name: 'test', description: 'Hallo', director: 'Test' });
+  }
+
+  return { list, addMovie };
 }
 
 export default defineComponent({
